@@ -1,0 +1,28 @@
+﻿@page "/"
+@layout LoginLayout
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="text-center">Login</h3>
+
+            <EditForm Model="loginModel" OnValidSubmit="LoginToApp">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <InputText id="username" @bind-Value="loginModel.UserId" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <InputText id="password" @bind-Value="loginModel.Password" type="password" class="form-control" />
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>

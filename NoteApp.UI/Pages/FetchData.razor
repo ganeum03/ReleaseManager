@@ -1,0 +1,75 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>Notes</h1>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+
+    <div class="row px-4" style="justify-content: flex-end !important;">
+        <NavLink class="nav-link" href="AddNote">
+            <span class="oi oi-plus" aria-hidden="true">Add New</span>
+        </NavLink>
+    </div>
+    <div class="row px-4" style="justify-content: flex-end;">
+        <input @bind="searchTerm" placeholder="Search">
+        <button @onclick="Search">Search</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Desc</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in displayedItems)
+            {
+                <tr>
+                    <td>@forecast.Name</td>
+                    <td>@forecast.Desc</td>
+                    <td>
+                        @*<a class="nav-link" href="EditNote/@forecast.Id">
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+        </a>|
+        <a class="nav-link" href="#" @onclick="() =>Delete(forecast.Id)">
+            <span class="oi oi-trash" aria-hidden="true"></span>
+        </a>*@
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-link" href="EditNote/@forecast.Id">
+                                <span class="oi oi-pencil" aria-hidden="true"></span>
+                            </a>
+                            <span>|</span>
+                            <i class="btn btn-link" @onclick="() => Delete(forecast.Id)">
+                                <span class="oi oi-trash" aria-hidden="true"></span>
+                            </i>
+                            <span>|</span>
+                            @if (!String.IsNullOrEmpty(forecast.FileName))
+                            {
+                                <i class="btn btn-link" @onclick="() => DownloadFile(forecast.Id,forecast.FileName)">
+                                    <span class="oi oi-cloud-download" aria-hidden="true"></span>
+                                </i>
+                            }
+                            else
+                            {
+                                <a class="btn btn-link" disabled>
+                                    <span class="oi oi-cloud-download" aria-hidden="true"></span>
+                                </a>
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button @onclick="PreviousPage" disabled="@IsFirstPage">Previous</button>
+    <span>Page @currentPage of @totalPages</span>
+    <button @onclick="NextPage" disabled="@IsLastPage">Next</button>
+}

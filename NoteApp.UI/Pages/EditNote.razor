@@ -1,0 +1,37 @@
+﻿@page "/EditNote/{Id}"
+
+<h2>Edit Note</h2>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.Name" />
+            </div>
+            <div class="form-group">
+                <label for="Roledesc" class="control-label">Description</label>
+                <textarea form="Roledesc" class="form-control" @bind="@obj.Desc"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="fileInput">File:</label>
+                @*<input type="file" id="fileInput" class="form-control" @ref="fileInputRef"/>*@
+                <InputFile OnChange="@HandleFileChange" />
+                <label>@obj.FileName</label>
+                @*<InputFile @bind-Value="@obj.FilePath" id="file" />*@
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateEmployee" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
